@@ -1,0 +1,1140 @@
+№1
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+double find_max(const vector<double>& arr) {
+    double max = arr[0];
+    for (int i = 1; i < arr.size(); i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
+
+double find_average_before_max(const vector<double>& arr) {
+    double max = find_max(arr);
+    double sum = 0;
+    int count = 0;
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] < max) {
+            sum += arr[i];
+            count++;
+        }
+    }
+    return sum / count;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int num_elements;
+    cout << "Введите число массивов: ";
+    cin >> num_elements;
+
+    vector<double> arr(num_elements);
+
+    cout << "Введите элементы массива через пробел: ";
+    for (int i = 0; i < num_elements; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "Max: " << find_max(arr) << endl;
+    cout << "Среднее значение до Max: " << find_average_before_max(arr) << endl;
+
+    return 0;
+}
+
+
+№2
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+struct Point {
+    double x;
+    double y;
+};
+
+double distance(const Point& p1, const Point& p2) {
+    return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+}
+
+double area(const Point& p1, const Point& p2) {
+    return distance(p1, p2) * distance(p1, p2);
+}
+
+double perimeter(const Point& p1, const Point& p2) {
+    return 4 * distance(p1, p2);
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    Point p1, p2;
+
+    cout << "Введите кординаты (x1, y1): ";
+    cin >> p1.x >> p1.y;
+
+    cout << "Введите кординаты (x2, y2): ";
+    cin >> p2.x >> p2.y;
+
+    cout << "Площадь: " << area(p1, p2) << endl;
+    cout << "Периметр: " << perimeter(p1, p2) << endl;
+
+    return 0;
+}
+
+
+№3
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    double amount;
+    cout << "Введите стоимость: ";
+    cin >> amount;
+    double discount = 0;
+    if (amount > 5000) {
+        discount = 0.1;
+    }
+    else if (amount > 1500) {
+        discount = 0.05;
+    }
+    else if (amount > 800) {
+        discount = 0.03;
+    }
+    double total = amount - amount * discount;
+    cout << "Total: " << total << endl;
+    return 0;
+}
+
+№4
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+
+int M_PI = 3.14159265358979323846;
+class Shape {
+public:
+    virtual double area() = 0;
+    virtual double perimeter() = 0;
+};
+
+class Rectangle : public Shape {
+public:
+    double width;
+    double height;
+    Rectangle(double width, double height) : width(width), height(height) {}
+    double area() override { return width * height; }
+    double perimeter() override { return 2 * (width + height); }
+};
+
+class Circle : public Shape {
+public:
+    double radius;
+    Circle(double radius) : radius(radius) {}
+    double area() override { return M_PI * radius * radius; }
+    double perimeter() override { return 2 * M_PI * radius; }
+};
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    Shape* shapes[] = { new Rectangle(2.0, 3.0), new Circle(4.0) };
+    for (int i = 0; i < 2; i++) {
+        cout << "Площадь: " << shapes[i]->area() << endl;
+        cout << "Периметр: " << shapes[i]->perimeter() << endl;
+        cout << endl;
+    }
+    return 0;
+}
+
+№5
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int day;
+    cout << "Введите день: ";
+    cin >> day;
+    string days[] = { "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"};
+    cout << "День недели: " << days[(day) % 7] << endl;
+    return 0;
+}
+
+№6
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>  
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    string line;
+    cout << "Введите слова: ";
+    getline(cin, line);
+
+    if (line.empty()) {
+        cout << "Пусто" << endl;
+        return 0;
+    }
+
+    vector<string> words;
+    istringstream iss(line);
+    string word;
+    while (iss >> word) {
+        words.push_back(word);
+    }
+
+    if (words.empty()) {
+        cout << "Нету слов" << endl;
+        return 0;
+    }
+
+    int min_length = words[0].length();
+    for (int i = 1; i < words.size(); i++) {
+        if (words[i].length() < min_length) {
+            min_length = words[i].length();
+        }
+    }
+
+    int count = 0;
+    for (int i = 0; i < words.size(); i++) {
+        if (words[i].length() == min_length) {
+            count++;
+        }
+    }
+
+    cout << "Кол-во: " << count << endl;
+    return 0;
+}
+
+№7
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+using namespace std;
+
+
+int max(vector<int> a) {
+    int temp = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] < a[i])
+        {
+            temp = i;
+        }
+    }
+    return temp;
+}
+
+int min(vector<int> a) {
+    int temp = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] > a[i])
+        {
+            temp = i;
+        }
+
+    }
+    return temp;
+}
+
+void spetial_sort(vector<int>& a) {
+    int temp;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[i] < 0) {
+            temp = a[a.size() - 1];
+            a[a.size() - 1] = a[i];
+            a[i] = temp;
+            a.pop_back();
+        }
+    }
+    sort(a.begin(), a.end());
+}
+
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+
+    cout << "Введите количество элементов в массиве: ";
+    int num_elements;
+    cin >> num_elements;
+
+    vector<int> arr(num_elements);
+    
+
+    cout << "Введите элементы массива: ";
+    for (int i = 0; i < num_elements; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "индекс максимального значения до сортировки: " << max(arr) << endl << "индекс минимального значения до сортировки: " << min(arr) << endl<<endl;
+
+    spetial_sort(arr);
+
+    cout << "индекс максимального значения после сортировки: " << max(arr) << endl << "индекс минимального значения после сортировки: " << min(arr) << endl << endl;
+
+    return 0;
+}
+
+
+№8
+#include <iostream>
+#include <iomanip> 
+#include <cmath>   
+int main() {
+    setlocale(LC_ALL, "RU");
+    const int SIZE = 5; 
+    double matrix[SIZE][SIZE]; 
+
+    
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            matrix[i][j] = rand() % 100 + 1; 
+        }
+    }
+
+    
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            std::cout << std::fixed << std::setprecision(0) << matrix[i][j] << ' '; 
+        }
+        std::cout << std::endl;
+    }
+
+    
+    for (int j = 0; j < SIZE; ++j) {
+        double sum = 0.0;
+        for (int i = 0; i < SIZE; ++i) {
+            sum += matrix[i][j]; 
+        }
+        std::cout << "Среднее арифметическое столбца " << j+1 << ": " << sum / SIZE << std::endl;
+    }
+
+    return 0;
+}
+
+
+№9
+#include <iostream>
+#include <vector>
+
+using namespace std;
+class MyClass {
+private:
+    int privateAttribute; 
+
+public:
+    int publicAttribute1; 
+    int publicAttribute2; 
+    int publicAttribute3; 
+
+   
+    MyClass(int pAttr, int pa1, int pa2, int pa3) : privateAttribute(pAttr), publicAttribute1(pa1), publicAttribute2(pa2), publicAttribute3(pa3) {}
+
+    
+    int getPrivateAttribute() {
+        return privateAttribute;
+    }
+
+    
+    void printAttributes() {
+        std::cout << "privateAttribute: " << privateAttribute << std::endl;
+        std::cout << "publicAttribute1: " << publicAttribute1 << std::endl;
+        std::cout << "publicAttribute2: " << publicAttribute2 << std::endl;
+        std::cout << "publicAttribute3: " << publicAttribute3 << std::endl;
+    }
+};
+
+int main() {
+    MyClass myObject(10, 20, 30, 40); 
+    myObject.printAttributes();       
+    std::cout << "privateAttribute: " << myObject.getPrivateAttribute() << std::endl; 
+    return 0;
+}
+
+№10
+#include <iostream>
+#include <vector>
+
+void bubbleSort(std::vector<int>& array) {
+    bool swapped;
+    int temp;
+    int size = array.size();
+
+    for (int i = 0; i < size - 1; i++) {
+        swapped = false;
+        for (int j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+                swapped = true;
+            }
+        }
+        
+        if (!swapped) {
+            break;
+        }
+    }
+}
+
+int main() {
+    const int ARRAY_SIZE = 10; 
+    std::vector<int> array(ARRAY_SIZE); 
+
+    
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        array[i] = rand() % 100;
+    }
+
+    
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        std::cout << array[i] << " ";
+    }
+    std::cout << std::endl;
+
+    
+    bubbleSort(array);
+
+    
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        std::cout << array[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+№11
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+using namespace std;
+float max(vector<float> a) {
+    int temp = 0;
+    int count = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] < a[i])
+        {
+            temp = i;
+        }
+    }
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] == a[i]) {
+            count++;
+        }
+    }
+    if (count > 0)
+    {
+        cout << endl << count << " раз повторяеться максимальное число" << endl;
+    }
+    return a[temp];
+}
+float min(vector<float> a) {
+    int temp = 0;
+    int count = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] > a[i])
+        {
+            temp = i;
+        }
+    }
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] == a[i]) {
+            count++;
+        }
+    }
+    if (count > 0)
+    {
+        cout << endl << count << " раз повторяеться минимальное число" << endl;
+    }
+    return a[temp];
+}
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    cout << "Введите количество элементов в массиве: ";
+    int num_elements;
+    cin >> num_elements;
+    vector<float> arr(num_elements);
+    cout << "Введите элементы массива: ";
+    for (int i = 0; i < num_elements; i++) {
+        cin >> arr[i];
+    }
+    cout << "индекс максимального значения: " << max(arr) << endl << "индекс минимального значения: " << min(arr) << endl<<endl;
+    return 0;
+}
+
+
+№12
+#include <iostream>
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    float gramPrice;
+    std::cout << "Введите цену за 1 грамм сахара: ";
+    std::cin >> gramPrice;
+
+
+    int startWeight = 250;
+    int endWeight = 1500;
+    int step = 100; 
+
+
+    std::cout << "Вес\tСтоимость" << std::endl;
+
+    for (int weight = startWeight; weight <= endWeight; weight += step) {
+        
+        float cost = weight * gramPrice;
+        std::cout << weight << "\t" << cost << "Руб" << std::endl;
+    }
+
+    return 0;
+}
+
+№13(Работает только на английском)
+#include <iostream>
+#include <string>
+#include <cctype> 
+int main() {
+    setlocale(LC_ALL, "RU");
+    std::string input;
+    std::cout << "Введите строку: ";
+    std::getline(std::cin, input); 
+
+    std::string result;
+    for (char ch : input) {
+        if (std::ispunct(ch)) { 
+            result += '\\'; 
+        }
+        result += ch; 
+    }
+
+    std::cout << "Результат: " << result << std::endl;
+    return 0;
+}
+
+№14
+#include <iostream>
+#include <string>
+int countPunctuation(const std::string& input) {
+    int count = 0;
+    for (char ch : input) {
+        if (std::ispunct(ch)) {
+            ++count;
+        }
+    }
+    return count;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    std::string input;
+    std::cout << "Введите строку: ";
+    std::getline(std::cin, input); 
+
+    int punctuationCount = countPunctuation(input);
+    std::cout << "Количество знаков препинания в строке: " << punctuationCount << std::endl;
+
+    return 0;
+}
+
+№15
+#include <iostream>
+
+class DistanceConverter {
+public:
+    double miles_to_kilometers(double miles) {
+        return miles * 1.61;
+    }
+
+    double kilometers_to_miles(double kilometers) {
+        return kilometers / 1.61;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    DistanceConverter converter;
+
+    double miles;
+    std::cout << "Введите расстояние в милях: ";
+    std::cin >> miles;
+
+    double kilometers = converter.miles_to_kilometers(miles);
+    std::cout << "Расстояние в километрах: " << kilometers << std::endl;
+
+    double kilometers2;
+    std::cout << "Введите расстояние в километрах: ";
+    std::cin >> kilometers2;
+
+    double miles2 = converter.kilometers_to_miles(kilometers2);
+    std::cout << "Расстояние в милях: " << miles2 << std::endl;
+
+    return 0;
+}
+
+№16
+#include <iostream>
+
+class Animal {
+protected:
+    std::string name;
+    int age;
+
+public:
+    Animal(std::string name, int age) : name(name), age(age) {}
+
+    virtual void speak() = 0;
+    virtual void eat() = 0; 
+
+   
+    std::string getName() { return name; }
+    int getAge() { return age; }
+};
+
+
+class Dog : public Animal {
+public:
+    Dog(std::string name, int age) : Animal(name, age) {}
+
+    void speak() override {
+        std::cout << "Гав!" << std::endl;
+    }
+
+    void eat() override {
+        std::cout << "Собака ест..." << std::endl;
+    }
+};
+class Cat : public Animal {
+public:
+    Cat(std::string name, int age) : Animal(name, age) {}
+
+    void speak() override {
+        std::cout << "Мяу!" << std::endl;
+    }
+
+    void eat() override {
+        std::cout << "Кот ест..." << std::endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "RU");
+
+    
+    Dog myDog = Dog("Rex", 3);
+    myDog.speak();
+    myDog.eat();
+
+    Cat myCat = Cat("Fluffy", 1);
+    myCat.speak();
+    myCat.eat();
+
+    return 0;
+}
+
+№17
+#include <iostream>
+#include <random>
+#include <algorithm>
+
+int main() {
+    const int size = 9; 
+    int array[size]; 
+
+    
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    
+    for (int i = 0; i < size; ++i) {
+        array[i] = gen() % 100; 
+    }
+
+   
+    for (int i = 0; i < size; ++i) {
+        std::cout << array[i] << " ";
+    }
+    std::cout << std::endl;
+
+   
+    auto minmax = std::minmax_element(array, array + size);
+
+    
+    std::iter_swap(minmax.first, minmax.second);
+
+    
+    for (int i = 0; i < size; ++i) {
+        std::cout << array[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+№18
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "RU");
+	string line;
+	cout << "Введите: ";
+	getline(cin, line);
+	int index;
+	char replacement;
+	cout << "Введите индекс символа, который требуется заменить: ";
+	cin >> index;
+	cout << "Введите заменяющий символ: ";
+	cin >> replacement;
+	line[index] = replacement;
+	line[line.length() - 1] = '.';
+	cout << "Изменено: " << line << endl;
+	return 0;
+}
+
+№19
+#include <iostream>
+#include <vector>
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    const int rows = 5;
+    const int cols = 5;
+    std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols));
+
+    // Заполнение матрицы
+    //for (int i = 0; i < rows; ++i) {
+    //    for (int j = 0; j < cols; ++j) {
+    //        matrix[i][j] = std::rand() % 10 + 1; // Случайные числа от 1 до 10
+    //    }
+    //}
+    matrix[0] = { 3, 8, 8, 9, 4 };
+    matrix[1] = { 4, 1, 9, 3, 7 };
+    matrix[2] = { 2, 3, 2, 9, 9 };
+    matrix[3] = { 1, 3, 7, 3, 4 };
+    matrix[4] = { 1, 4, 9, 2, 1 };
+
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    double mainDiagonalSum = 0.0;
+    for (int i = 0; i < rows; ++i) {
+        mainDiagonalSum += matrix[i][i];
+    }
+
+    double sideDiagonalSum = 0.0;
+    for (int i = 0, j = cols - 1; i < rows && j >= 0; --j, ++i) {
+        sideDiagonalSum += matrix[i][j];
+    }
+
+    double mainDiagonalAverage = mainDiagonalSum / rows;
+    double sideDiagonalAverage = sideDiagonalSum / rows;
+
+    std::cout << "Среднеарифметическое главной диагонали: " << mainDiagonalAverage << std::endl;
+    std::cout << "Среднеарифметическое побочной диагонали: " << sideDiagonalAverage << std::endl;
+
+    return 0;
+}
+
+№20
+#include <iostream>
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int a, b;
+
+    std::cout << "Введите первое число: ";
+    std::cin >> a;
+    std::cout << "Введите второе число: ";
+    std::cin >> b;
+
+    if (a > b) {
+        std::cout << "Первое число больше второго." << std::endl;
+    }
+    else if (a < b) {
+        std::cout << "Второе число больше первого." << std::endl;
+    }
+    else {
+        std::cout << "Числа равны." << std::endl;
+    }
+
+    return 0;
+}
+
+№21
+#include <iostream>
+
+int sumOfDigits(int num) {
+    int sum = 0;
+    while (num > 0) {
+        sum += num % 10;
+        num /= 10;
+    }
+    return sum;
+}
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+    int count = 0;
+
+    for (int i = 0; i <= 999999; ++i) {
+        if (sumOfDigits(i) == 25) {
+            ++count;
+        }
+    }
+
+    std::cout << "Количество чисел, у которых сумма цифр равна 25: " << count << std::endl;
+
+    return 0;
+}
+
+№22
+#include <iostream>
+
+bool isDivisibleByN(int number, int N) {
+    return number % N == 0;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int N, number;
+
+    std::cout << "Введите число N: ";
+    std::cin >> N;
+
+    std::cout << "Введите число для проверки: ";
+    std::cin >> number;
+
+    if (isDivisibleByN(number, N)) {
+        std::cout << "Число делится на " << N << std::endl;
+    }
+    else {
+        std::cout << "Число не делится на " << N << std::endl;
+    }
+
+    return 0;
+}
+
+№23
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+double calculateAverage(const std::vector<int>& array) {
+    double sum = 0;
+    for (int value : array) {
+        sum += value;
+    }
+    return sum / array.size();
+}
+
+int findMinElement(const std::vector<int>& array) {
+    return  *std::min_element(array.begin(), array.end());
+}
+
+void replaceMinElementsWithAverage(std::vector<int>& array) {
+    int minElement = findMinElement(array);
+    double average = calculateAverage(array);
+
+    std::transform(std::begin(array), std::end(array), std::begin(array),
+        [&](int x) { return x == minElement ? static_cast<int>(average) : x; });
+}
+
+int main() {
+    std::vector<int> array = { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5 };
+    replaceMinElementsWithAverage(array);
+
+    for (int value : array) {
+        std::cout << value << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+№24
+#include <iostream>
+#include <string>
+
+class Animal {
+public:
+    Animal() : age(0) {} 
+    virtual void speak() = 0;
+    virtual void move() = 0;
+    std::string name;
+    int age;
+};
+
+class Dog : public Animal {
+public:
+    Dog() : Animal() {} 
+    void speak() override { std::cout << "Гав!" << std::endl; }
+    void move() override { std::cout << "Бежит и прыгает!" << std::endl; }
+};
+
+class Cat : public Animal {
+public:
+    Cat() : Animal() {} 
+    void speak() override { std::cout << "Мяу!" << std::endl; }
+    void move() override { std::cout << "Карабкается и цепляется!" << std::endl; }
+};
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    
+    Dog buddy;
+    buddy.name = "Buddy";
+    buddy.age = 3;
+
+    Cat fluffy;
+    fluffy.name = "Fluffy";
+    fluffy.age = 1;
+
+    buddy.speak();
+    buddy.move();
+
+    fluffy.speak();
+    fluffy.move();
+
+    return 0;
+}
+
+№25
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Функция для нахождения количества чисел в строке
+int countNumbersInString(string str) {
+    
+    int count = 0;
+    int number;
+
+    // Считаем количество чисел, используя потоковый ввод
+    for (int i = 0; i < str.size(); i++)
+    {
+        
+        if (isdigit(str[i])) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    string input;
+    cout << "Введите строку: ";
+    getline(cin, input); // Считываем строку с пробелами
+
+    // Выводим количество чисел в строке
+    cout << "Количество чисел в строке: " << countNumbersInString(input) << endl;
+
+    return 0;
+}
+
+№26
+#include <iostream>
+#include <vector>
+#include <algorithm> 
+using namespace std;
+
+
+int max(vector<int> a) {
+    int temp = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] < a[i])
+        {
+            temp = i;
+        }
+    }
+    return temp;
+}
+
+int min(vector<int> a) {
+    int temp = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[temp] > a[i])
+        {
+            temp = i;
+        }
+
+    }
+    return temp;
+}
+
+void spetial_sort(vector<int>& a) {
+    int temp;
+    for (int i = 0; i < a.size(); i++)
+    {
+        if (a[i] < 0) {
+            temp = a[a.size() - 1];
+            a[a.size() - 1] = a[i];
+            a[i] = temp;
+            a.pop_back();
+        }
+    }
+    sort(a.begin(), a.end());
+}
+
+
+int main() {
+    setlocale(LC_ALL, "Ru");
+
+    cout << "Введите количество элементов в массиве: ";
+    int num_elements;
+    cin >> num_elements;
+
+    vector<int> arr(num_elements);
+    
+
+    cout << "Введите элементы массива: ";
+    for (int i = 0; i < num_elements; i++) {
+        cin >> arr[i];
+    }
+
+    cout << "индекс максимального значения до сортировки: " << max(arr) << endl << "индекс минимального значения до сортировки: " << min(arr) << endl<<endl;
+
+    spetial_sort(arr);
+
+    cout << "индекс максимального значения после сортировки: " << max(arr) << endl << "индекс минимального значения после сортировки: " << min(arr) << endl << endl;
+
+    return 0;
+}
+
+№27
+#include <iostream>
+
+class MyClass {
+private:
+    int privateAttribute; 
+
+public:
+    int publicAttribute1;
+    int publicAttribute2;
+    int publicAttribute3;
+
+    MyClass(int privateValue, int publicValue1, int publicValue2, int publicValue3)
+        : privateAttribute(privateValue),
+        publicAttribute1(publicValue1),
+        publicAttribute2(publicValue2),
+        publicAttribute3(publicValue3)
+    {
+    }
+
+    int getPrivateAttribute() {
+        return privateAttribute;
+    }
+
+    void printAttributes() {
+        std::cout << "privateAttribute: " << privateAttribute << std::endl;
+        std::cout << "publicAttribute1: " << publicAttribute1 << std::endl;
+        std::cout << "publicAttribute2: " << publicAttribute2 << std::endl;
+        std::cout << "publicAttribute3: " << publicAttribute3 << std::endl;
+    }
+};
+
+int main() {
+    MyClass myObject(10, 20, 30, 40); 
+
+    myObject.printAttributes();
+
+    int privateValue = myObject.getPrivateAttribute();
+    std::cout << "privateAttribute: " << privateValue << std::endl;
+
+    return 0;
+}
+
+№28
+#include <iostream>
+
+class DistanceConverter {
+private:
+    const double FEET_TO_KILOMETERS_CONSTANT = 0.3048; 
+    const double KILOMETERS_TO_FEET_CONSTANT = 3.28084;
+
+public:
+    double feetToKilometers(double feet) {
+        return feet * FEET_TO_KILOMETERS_CONSTANT;
+    }
+
+    double kilometersToFeet(double kilometers) {
+        return kilometers * KILOMETERS_TO_FEET_CONSTANT;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    DistanceConverter converter;
+
+   
+    double distanceInFeet = 0; 
+    std::cout << "Введите футы: ";
+    std::cin >> distanceInFeet;
+    double distanceInKilometers = converter.feetToKilometers(distanceInFeet);
+    std::cout << "Расстояние в километрах: " << distanceInKilometers << std::endl;
+
+    double distanceInKilometers2 = 0; 
+    std::cout << "Введите километры: ";
+    std::cin >> distanceInKilometers2;
+    double distanceInFeet2 = converter.kilometersToFeet(distanceInKilometers2);
+    std::cout << "Расстояние в футах: " << distanceInFeet2 << std::endl;
+
+    return 0;
+}
+
+№29
+#include <iostream>
+
+int calculateSecondsFromStartOfDay(int h, int m, int s) {
+    const int SECONDS_PER_HOUR = 3600;
+    const int SECONDS_PER_MINUTE = 60;
+
+    int totalSeconds = h * SECONDS_PER_HOUR + m * SECONDS_PER_MINUTE + s;
+
+    return totalSeconds;
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int hours = 0; 
+    int minutes = 0;
+    int seconds = 0;
+    std::cout << "Введите часы: ";
+    std::cin >> hours;
+    std::cout << "Введите минуты: ";
+    std::cin >> minutes;
+    std::cout << "Введите секунды: ";
+    std::cin >> seconds;
+
+    int totalSeconds = calculateSecondsFromStartOfDay(hours, minutes, seconds);
+    std::cout << "Количество секунд с начала дня: " << totalSeconds << std::endl;
+
+    return 0;
+}
